@@ -1,0 +1,4 @@
+	- npm install http-server -g -- Para instalar o http-server no computador, de forma global.
+	- executar:
+		- http-server -- na pasta do projeto para criar um servidor local.
+			* Caso estiver executando em um notebook, "C:\Users\USUARIOAQUI\AppData\Roaming\npm\http-server"
