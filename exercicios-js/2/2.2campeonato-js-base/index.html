@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+
+<head>
+
+    <title>Exercícios</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+        let times = [{
+            nome: "Liverpool",
+            vitorias: 23,
+            empates: 7,
+            derrotas:1,
+            golsproprio:70,
+            golscontra:52
+        }, {
+            nome: "City",
+            vitorias: 24,
+            empates: 2,
+            derrotas:4,
+            golsproprio:79,
+            golscontra:21
+        }, {
+            nome: "Tottenhan",
+            vitorias: 20,
+            empates: 1,
+            derrotas:9,
+            golsproprio:57,
+            golscontra:32
+        }, {
+            nome: "Arsenal",
+            vitorias: 18,
+            empates: 6,
+            derrotas:6,
+            golsproprio:63,
+            golscontra:39
+        }, {
+            nome: "Manchester United",
+            vitorias: 17,
+            empates: 7,
+            derrotas:6,
+            golsproprio:58,
+            golscontra:40
+        }, {
+            nome: "Chelsea",
+            vitorias: 17,
+            empates: 6,
+            derrotas:7,
+            golsproprio:50,
+            golscontra:33
+        }];
+
+        console.log("1	Lista somente os times cujas vitórias seja maior ou igual que 20");
+        console.log(times.filter(t => t.vitorias >= 20));
+
+        console.log("2	Traga somente os nomes dos times");
+        console.log(times.map(t => t.nome));
+
+        console.log("3	Adicione mais um time chamado Wolves, vitorias 12, empates 8, derrotas 10, gols proprios 38, golscontras 36;");
+        times.push({
+            nome: "Wolves",
+            vitorias: 12,
+            empates: 8,
+            derrotas: 10,
+            golsproprio: 38,
+            golscontra: 36
+        });
+
+        console.log("4	Mostre o nome e a quantidade de jogos, quantidade de vitorias, empates, derrotas, golsProprios, golsContras, saldo de gols de um time.");
+        times.forEach(element => {
+            console.log("Nome: " + element.nome + " Quantidade de jogos: " + parseInt(element.vitorias + element.derrotas + element.empates) + " Vitórias: " + element.vitorias + " Empates: " + element.empates + " Derrotas: " + element.derrotas + " Gols Próprios: " + element.golsproprio + " Gols contra: " + element.golscontra + " Saldo de gols: " + parseInt(element.golsproprio - element.golscontra));
+        });
+
+        console.log("5	Informe a quantidade de jogos do campeonato;");
+        let qntJogos = times.reduce(function(totalDeJogos, vitorias, derrotas, empates) {
+                            let numJogos = times.map(t => t.vitorias + t.derrotas + t.empates);
+
+                            numJogos.forEach(element => {
+                                totalDeJogos += element
+                            });
+                            
+                            return totalDeJogos;
+                        }, 0);
+
+        console.log("Quantidade de jogos: " + qntJogos);
+
+        // let qntJogos = 0;
+        // times.forEach(element => {
+        //     qntJogos  = qntJogos + (element.vitorias + element.derrotas + element.empates);
+        // });
+        
+        // console.log("Quantidade de jogos: " + qntJogos);
+    </script>
+
+</body>
+
+</html>

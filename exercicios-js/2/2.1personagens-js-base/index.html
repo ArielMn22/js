@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<head>
+
+    <title>Exercícios</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <script>
+        let personagens = [{
+            nome: "Capitão Cometa",
+            dataAparicao: 1951,
+            editora: "DC"
+        }, {
+            nome: "Lanterna Verde",
+            dataAparicao: 1940,
+            editora: "DC"
+        }, {
+            nome: "Ciborgue",
+            dataAparicao: 1980,
+            editora: "DC"
+        }, {
+            nome: "Homem Aranha",
+            dataAparicao: 1962,
+            editora: "Marvel"
+        }, {
+            nome: "Homem de Ferro",
+            dataAparicao: 1963,
+            editora: "Marvel"
+        }, {
+            nome: "Capitão América",
+            dataAparicao: 1940,
+            editora: "Marvel"
+        }];
+
+        console.log("1. Listar somente os personagens da Marvel:");
+        console.log(personagens.filter(c => c.editora == "Marvel"));
+
+        console.log("2.	Liste somente os personagem cuja data de Aparição seja superior a 1950;");
+        console.log(personagens.filter(c => c.dataAparicao > 1950));
+
+        console.log("3.	Traga somente os nomes dos personagens;");
+        console.log(personagens.map(c => c.nome));
+
+        console.log("4.	Adicione mais um personagem chamado Capitã Marvel, data de Aparição 1977 e editora Marvel;");
+        personagens.push({
+            nome: "Capitã Marvel",
+            dataAparicao: 1977,
+            editora: "Marvel"
+        });
+        console.log(personagens);
+
+        console.log("5.	Mostre a quantidade de personagens da Marvel que possuem na lista");
+        console.log(personagens.length);
+
+        console.log("Some a idade de todos os personagens:");
+        
+        let somaIdades = 0;
+        personagens.map(c => c.dataAparicao).forEach(element => {
+            somaIdades += element;
+        });
+
+        console.log(somaIdades);
+
+        personagens.forEach(element => {
+            console.log("Nome: " + element.nome + " Data de Aparição: " + element.dataAparicao);
+        });
+    </script>
+
+</body>
+
+</html>

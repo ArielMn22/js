@@ -12,13 +12,38 @@
 
     <form id="formtemperatura">
         <input type="text" required name="temperatura" id="temperatura">
-        <input type="checkbox"  id="celcius" name="temperatura">Celcius</checkbox>
-        <input type="checkbox"  id="fahrenheit" name="temperatura">Fahrenheit</checkbox>
+        <input type="checkbox" id="celcius" name="temperatura">Celcius</checkbox>
+        <input type="checkbox" id="fahrenheit" name="temperatura">Fahrenheit</checkbox>
         <button type="submit" id="btnConverter">Converter</button>
     </form>
 
     <script>
-        
+        var celsiusBox = document.querySelector("#celcius");
+        var fahrenheitBox = document.querySelector("#fahrenheit");
+        var btn = document.querySelector("#btnConverter");
+        var temperatura = document.querySelector("#temperatura");
+
+        btn.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (!isNaN(temperatura)) {
+                if (celsiusBox.checked == true) {
+                    var resultado = (temperatura.value - 32) / 1.8;
+
+                    alert(resultado);
+                    console.log(resultado);
+                } else if (fahrenheitBox.checked == true) {
+                    var resultado = (temperatura.value * 1.8) + 32;
+
+                    alert(resultado);
+                    console.log(resultado);
+                } else {
+                    alert("Insira um valor e marque uma das opções.");
+                }
+            } else {
+                alert("Insira um valor e marque uma das opções.");
+            }
+        });
     </script>
 
 </body>
