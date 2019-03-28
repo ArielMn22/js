@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<head>
+
+    <title>Jogos - JS</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <table id="tabela-lista">
+        <table>
+    
+    <script>
+        const URL = 'https://5c9cbcf13be4e30014a7d268.mockapi.io/hroads/jogos';
+        
+        fetch(URL)
+        .then(resposta => resposta.json())
+        .then(data => criarTabela(data))
+        .catch(console.log(erro => console.log('Erro no GET personagens', erro)));
+
+        function criarTabela(data) {
+            let tabela = document.querySelector("#tabela-lista");
+
+            data.forEach(element => {
+                let novaLinha = document.createElement("tr");
+
+                let colunaId = document.createElement("td");
+
+                let colunaNome = document.createElement("td");
+
+                let colunaImage = document.createElement("td");
+
+                let colunaDescricao = document.createElement("td");
+
+                let colunaEstudioId = document.createElement("td");
+
+                let colunaEstudio = document.createElement("td");
+
+                colunaId.innerText = data.id;
+                colunaNome.innerText = data.nome;
+                colunaImage.innerHTML = "<img src=" + data.imagem + " alt='Gódofuar!' style='width: 200px'>";
+                colunaDescricao.innerText = data.descricao;
+                colunaEstudioId.innerText = data.estudioid;
+                // colunaEstudioNome = data.estudio.nome;
+
+                novaLinha.appendChild(colunaId);
+                novaLinha.appendChild(colunaNome);
+                novaLinha.appendChild(colunaImage);
+                novaLinha.appendChild(colunaDescricao);
+                novaLinha.appendChild(colunaEstudioId);
+                novaLinha.appendChild(colunaEstudioNome);
+
+                tabela.appendChild(novaLinha);
+            });
+        }
+    </script>
+</body>
+
+</html>

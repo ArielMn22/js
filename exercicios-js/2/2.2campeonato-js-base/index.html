@@ -83,24 +83,17 @@
         });
 
         console.log("5	Informe a quantidade de jogos do campeonato;");
-        let qntJogos = times.reduce(function(totalDeJogos, vitorias, derrotas, empates) {
-                            let numJogos = times.map(t => t.vitorias + t.derrotas + t.empates);
-
-                            numJogos.forEach(element => {
-                                totalDeJogos += element
-                            });
-                            
-                            return totalDeJogos;
-                        }, 0);
-
-        console.log("Quantidade de jogos: " + qntJogos);
-
-        // let qntJogos = 0;
-        // times.forEach(element => {
-        //     qntJogos  = qntJogos + (element.vitorias + element.derrotas + element.empates);
-        // });
         
-        // console.log("Quantidade de jogos: " + qntJogos);
+        // Faz a soma das partidas de cada time (time.vitorias + time.derrotas + time.empates)
+        var somaDosJogosDeCadaTime = times.map(t => t.empates + t.vitorias + t.derrotas);
+        console.log("Soma dos jogos de cada time: " + somaDosJogosDeCadaTime);
+        
+        // qntTotal = valor acumulativo; elem = valor atual da iteração, como se fosse o objeto em um foreach.
+        var somaTotalDeJogos = somaDosJogosDeCadaTime.reduce(function(qntTotal, elem) {
+            return qntTotal + elem;
+        }, 0);
+
+        console.log("Quantidade de jogos: " + somaTotalDeJogos);
     </script>
 
 </body>

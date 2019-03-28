@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<head>
+
+    <title>InLock - Personagens</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <table id="tabela-lista">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabela-lista-corpo"></tbody>
+    </table>
+
+    <script>
+        const URL = "https://salty-atoll-57329.herokuapp.com/personagens";
+
+        fetch(URL, { method: 'GET'})
+        .then(resposta => resposta.json())
+        .then(data => criarTabela(data))
+        .catch(console.log(erro => console.log('Erro no GET personagens', erro)));
+
+        function criarTabela(data) {
+            // Tabela dos personagens
+            let tabela = document.querySelector('#tabela-lista');
+
+            data.forEach(personagem => {
+                // Cria uma nova linha.
+                novaLinha = document.createElement("tr");
+
+                // Cria uma nova coluna para o nome das personagens.
+                colunaNome = document.createElement("td");
+
+                // Cria uma nova coluna para a data de lancamento das personagens.
+                colunaLancamento = document.createElement("td");
+
+                // Cria uma nova coluna para guardar a imagem das personagens.
+                colunaImagem = document.createElement("td");
+
+                // Atribuindo valores aos elementos.
+                colunaNome.innerText = personagem.nome;
+                colunaLancamento.innerText = personagem.lancamento;
+                colunaImagem.innerHTML = "<img src="+ personagem.urlImagem + " alt='imagem do miranha' style='width: 100px'>";
+
+                novaLinha.appendChild(colunaNome);
+                novaLinha.appendChild(colunaLancamento);
+                novaLinha.appendChild(colunaImagem);
+
+                tabela.appendChild(novaLinha);
+            });
+            // Criando linha
+
+        }
+    </script>
+</body>
+
+</html>
