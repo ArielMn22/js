@@ -34,7 +34,7 @@
         fetch(URL, { method: 'GET'})
         .then(resposta => resposta.json())
         .then(data => criarTabela(data))
-        .catch(console.log(erro => console.log('Erro no GET personagens', erro)));
+        .catch(erro => console.log('Erro Personagens: ', erro)); //Ocorreu um erro
 
         function criarTabela(data) {
             // Tabela dos personagens

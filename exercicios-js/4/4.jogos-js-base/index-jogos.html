@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jogos</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./assets/css/flexbox.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- Fontes -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+</head>
+
+<body>
+
+    <div>
+            <table id="tabela-lista">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                  <th>Imagem</th>
+                  <th>Estúdio</th>
+                </tr>
+              </thead>
+
+              <tbody id="tabela-lista-corpo"></tbody>
+            </table>
+         
+          <div class="container" id="conteudoPrincipal-cadastro">
+            <h2 class="conteudoPrincipal-cadastro-titulo">
+              Cadastrar Jogos
+            </h2>
+            <form method="POST" id="form">
+              <div class="container">
+                <input
+                  type="text"
+                  id="nome-jogo"
+                  placeholder="Informe o nome do jogo"
+                />
+                <input
+                  type="text"
+                  id="urlimagem"
+                  placeholder="http://"
+                />
+		<input
+                  type="text"
+                  id="estudio"
+                  placeholder="Informe o nome do estúdio"
+                />
+                <textarea
+                  type="text"
+                  id="descricao"
+                  placeholder="Informe a Descrição do jogo"
+                ></textarea>
+                
+                <button
+                  class="conteudoPrincipal-btn conteudoPrincipal-btn-cadastro"
+                >
+                  Cadastrar
+                </button>
+              </div>
+            </form>
+          </div>
+    </div>
+
+    <script>
+      const URL = "https://5c9cbcf13be4e30014a7d268.mockapi.io/hroads/jogos";
+
+      // POST
+
+      let form = document.querySelector("#form");
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let jogo = {
+          nome: document.querySelector("#nome-jogo").value,
+          imagem: document.querySelector("#urlimagem").value,
+          descricao: document.querySelector("#descricao").value,
+          estudio: document.querySelector("#estudio").value
+        }
+
+        // Fetch para POST
+        fetch(URL, {
+          method: "POST",
+          body: JSON.stringify(jogo),
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+        .then(resposta => console.log(resposta))
+        .then(data => carregarListaJogos())
+        .catch(error => console.log(error))
+      });
+
+      function carregarListaJogos()
+      {
+        fetch(URL)
+        .then(resposta => resposta.json())
+        .then(data => criarTabela(data))
+        .catch(erro => console.log(erro))
+      }
+
+      function criarTabela(data)
+      {
+        let tabela = document.querySelector("#tabela-lista");
+
+        data.forEach(element => {
+          
+          // Criando elementos
+          let novaLinha = document.createElement("tr");
+          let colunaId = document.createElement("td");
+          let colunaImagem = document.createElement("td");
+          let colunaNome = document.createElement("td");
+          let colunaDescricao = document.createElement("td");
+          let colunaEstudio = document.createElement("td");
+          
+          // Atribuindo valor
+          colunaId.innerText = element.id;
+
+          colunaImagem.innerHTML = "<img src=" + element.imagem + " alt='Imagem' style='width: 200px'>"; // Essa funciona...
+          // colunaImagem.innerHTMl = "<img src=" + element.imagem + " alt='Imagem' style='width: 200px'>"; // ...essa não
+
+          colunaNome.innerText = element.nome;
+          colunaDescricao.innerText = element.descricao;
+          colunaEstudio.innerText = element.estudio;
+
+          // Relacionando hierarquias
+          novaLinha.appendChild(colunaId);
+          novaLinha.appendChild(colunaNome);
+          novaLinha.appendChild(colunaDescricao);
+          novaLinha.appendChild(colunaImagem);
+          novaLinha.appendChild(colunaEstudio);
+          tabela.appendChild(novaLinha);
+        });
+        
+      }
+
+      carregarListaJogos();
+    </script>
+    <img src="" alt="">
+</body>
+
+</html>

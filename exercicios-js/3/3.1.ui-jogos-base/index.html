@@ -17,20 +17,26 @@
 <body>
 
     <table id="tabela-lista">
+        <tr>
+            <th>#</th>
+            <th>Imagem</th>
+            <th></th>
+        </tr>
         <table>
     
     <script>
         const URL = 'https://5c9cbcf13be4e30014a7d268.mockapi.io/hroads/jogos';
         
-        fetch(URL)
+        fetch(URL, { method: 'GET' })
         .then(resposta => resposta.json())
         .then(data => criarTabela(data))
-        .catch(console.log(erro => console.log('Erro no GET personagens', erro)));
+        .catch(erro => console.log('Erro Jogos base: ', erro)); //Ocorreu um erro
 
         function criarTabela(data) {
             let tabela = document.querySelector("#tabela-lista");
 
             data.forEach(element => {
+
                 let novaLinha = document.createElement("tr");
 
                 let colunaId = document.createElement("td");
@@ -41,24 +47,23 @@
 
                 let colunaDescricao = document.createElement("td");
 
-                let colunaEstudioId = document.createElement("td");
+                // let colunaEstudioId = document.createElement("td");
 
                 let colunaEstudio = document.createElement("td");
 
-                colunaId.innerText = data.id;
-                colunaNome.innerText = data.nome;
-                colunaImage.innerHTML = "<img src=" + data.imagem + " alt='Gódofuar!' style='width: 200px'>";
-                colunaDescricao.innerText = data.descricao;
-                colunaEstudioId.innerText = data.estudioid;
-                // colunaEstudioNome = data.estudio.nome;
+                colunaId.innerText = element.id;
+                colunaNome.innerText = element.nome;
+                colunaImage.innerHTML = "<img src=" + element.imagem + " alt='Gódofuar!' style='width: 200px'>";
+                colunaDescricao.innerText = element.descricao;
+                // colunaEstudioId.innerText = element.estudioid;
+                colunaEstudio.innerText = element.estudio;
 
                 novaLinha.appendChild(colunaId);
                 novaLinha.appendChild(colunaNome);
                 novaLinha.appendChild(colunaImage);
                 novaLinha.appendChild(colunaDescricao);
-                novaLinha.appendChild(colunaEstudioId);
-                novaLinha.appendChild(colunaEstudioNome);
-
+                novaLinha.appendChild(colunaEstudio);
+                // novaLinha.appendChild(colunaEstudioId);
                 tabela.appendChild(novaLinha);
             });
         }

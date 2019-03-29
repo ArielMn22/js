@@ -54,7 +54,7 @@
             <h2 class="conteudoPrincipal-cadastro-titulo">
               Cadastrar Tipo de Evento
             </h2>
-            <form>
+            <form method="POST" id="form">
               <div class="container">
                 <input
                   type="text"
@@ -82,7 +82,8 @@
     </div>
 
     <script>
-      // let tiposEventos = [ {"id":3,"nome":"Linkedin"} , {"id":1,"nome":"Outro Evento"} , {"id":2,"nome":"Web Design"} ];      
+      // Array estático
+      // let tiposEventos = [ {"id":3,"nome":"Linkedin"} , {"id":1,"nome":"Outro Evento"} , {"id":2,"nome":"Web Design"} ];
       // console.log(tiposEventos);
 
       // Comparação - SQL CLIENT - MODO DÍFICIL
@@ -102,36 +103,65 @@
       // xhr.open('GET', 'http://192.168.4.112:5000/api/tiposeventos'); // onde
       // xhr.send(); // Fazer a request.
 
-      const URL = 'http://192.168.4.112:5000/api/tiposeventos';
+      const URL = "http://192.168.4.112:5000/api/tiposeventos";
 
-      // Como default é GET, não precisa informar o GET na chamada.
-      fetch(URL) //fetch(URL, {method: 'GET'} )
-      .then(resposta => resposta.json())
-      .then(data => preencherDados(data))
-      .catch(erro => console.log('Erro Tipos Eventos', erro));
+      function carregaListaTiposEventos() {
+        // Como default é GET, não precisa informar o GET na chamada.
+        fetch(URL) //fetch(URL, {method: 'GET'} )
+          .then(resposta => resposta.json())
+          .then(data => preencherDados(data))
+          .catch(erro => console.log("Erro Tipos Eventos", erro));
+      }
+
+      carregaListaTiposEventos();
 
       let tabela = document.querySelector("#tabela-lista-corpo");
 
+      let form = document.querySelector("#form");
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let tipoEvento = {
+          nome: document.querySelector("#nome-tipo-evento").value
+        };
+
+        // Fetch para post
+        fetch(URL, {
+          method: "POST",
+          body: JSON.stringify(tipoEvento),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(resposta => console.log(resposta))
+          .then(data => carregaListaTiposEventos())
+          .catch(erro => console.log(erro));
+      });
+
       function preencherDados(tiposEventos) {
-        tiposEventos.forEach(element => {
+        tabela.innerText = "";
+        
+        // tiposEventos.sort();
+
+        tiposEventos.sort().forEach(element => {
           // Criar uma linha
           let novaLinha = document.createElement("tr");
-          
+
           // Crio a coluna
           let colunaId = document.createElement("td");
-          
+
           // Atribuo um valor a coluna
           colunaId.innerText = element.id;
-          
+
           let colunaNome = document.createElement("td");
           colunaNome.innerText = element.nome;
-          
+
           novaLinha.appendChild(colunaId); // Adiciona colunaId como filho na novaLinha
           novaLinha.appendChild(colunaNome); // Adiciona colunaNome como filho na novaLinha
           tabela.appendChild(novaLinha); // Adiciona novaLinha como filho da tabela
         });
       }
     </script>
-
   </body>
 </html>
