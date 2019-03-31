@@ -52,10 +52,42 @@
     </div>
   </div>
 
-  <script src="estudios.js"></script>
+  <script src="/assets/js/estudios.js"></script>
 
   <script>
-    console.log(carregarListaEstudios());
+    let select = document.querySelector("#estudios");
+
+    this.carregarListaEstudios().then((_data) => {
+      _data.forEach(element => {
+        let novaOption = document.createElement("option");
+
+        novaOption.innerHTML = "<option value=" + element.nome + ">" + element.nome + "</option>";
+
+        select.appendChild(novaOption);
+      });
+    });
+
+    //POST
+
+    let form = document.querySelector("#form");
+
+    let jogo = {
+      nome: document.querySelector("#nome-jogo").value,
+      urlimagem: document.querySelector("#urlimagem").value,
+      estudio: document.querySelector("#estudios").value,
+      descricao: document.querySelector("#descricao").value
+    }
+
+    fetch(URL, {
+      method: 'POST',
+      body: JSON.stringify(estudio),
+      headers: {
+        "Content-Type" : "application/json"
+      }
+    })
+    .then(resposta => console.log(resposta))
+    .then(data => preencherJogos())
+    .catch(erro => console.log(erro))
   </script>
 </body>
 

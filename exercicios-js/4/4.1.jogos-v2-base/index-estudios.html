@@ -50,29 +50,57 @@
 
   </div>
 
-  <script src="estudios.js"></script>
+  <script src="/assets/js/estudios.js"></script>
 
   <script>
-    function preencherTabela(data) {
-      let tabela = document.querySelector("#tabela-lista");
+    // Study = https://stackoverflow.com/questions/38869197/fetch-set-variable-with-fetch-response-and-return-from-function
+    function preencherTabela() {
+      let tabela = document.querySelector("#tabela-lista-corpo");
 
-      data.forEach(element => {
-        let novaLinha = document.createElement("tr");
+      tabela.innerText = ''; //Zera a tabela
 
-        let colunaId = document.createElement("td");
+      this.carregarListaEstudios().then((_data) => { // Dentro dessa function, é possivel utilizar o valor de '_data'
 
-        let colunaNome = document.createElement("td");
+        _data.forEach(element => {
+          let novaLinha = document.createElement("tr");
 
-        colunaId.innerText = element.id;
-        colunaNome.innerText = element.nome;
+          let colunaId = document.createElement("td");
 
-        novaLinha.appendChild(colunaId);
-        novaLinha.appendChild(colunaNome);
-        tabela.appendChild(novaLinha);
+          let colunaNome = document.createElement("td");
+
+          colunaId.innerText = element.id;
+          colunaNome.innerText = element.nome;
+
+          novaLinha.appendChild(colunaId);
+          novaLinha.appendChild(colunaNome);
+          tabela.appendChild(novaLinha);
+        });
       });
     }
 
-    carregarListaEstudios();
+    preencherTabela();
+
+    // POST
+    let form = document.querySelector("#form");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      let estudio = {
+        nome: document.querySelector("#nome-estudio").value
+      }
+
+      fetch(URL, {
+        method: "POST",
+        body: JSON.stringify(estudio),
+        headers: {
+          "Content-Type" : "application/json"
+        }
+      })
+      .then(resposta => console.log(resposta))
+      .then(data => preencherTabela())
+      .catch(erro => console.log(erro))
+    });
   </script>
 </body>
 
