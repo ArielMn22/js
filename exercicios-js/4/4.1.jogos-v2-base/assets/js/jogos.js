@@ -1,8 +1,8 @@
-const URL = "http://5c9e69fb595c55001487bf36.mockapi.io/api/v2/jogos";
+const URLJogos = "http://5c9e69fb595c55001487bf36.mockapi.io/api/v2/jogos";
 
 function carregarListaJogos() {
 
-  return fetch(URL)
+  return fetch(URLJogos)
     .then(resposta => resposta.json())
     .then(_data => {
       return _data;

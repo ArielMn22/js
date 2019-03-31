@@ -90,7 +90,7 @@
         nome: document.querySelector("#nome-estudio").value
       }
 
-      fetch(URL, {
+      fetch(URLEstudios, {
         method: "POST",
         body: JSON.stringify(estudio),
         headers: {

@@ -53,6 +53,7 @@
   </div>
 
   <script src="/assets/js/estudios.js"></script>
+  <script src="/assets/js/jogos.js"></script>
 
   <script>
     let select = document.querySelector("#estudios");
@@ -67,27 +68,65 @@
       });
     });
 
-    //POST
+    // Get
+    function preencherJogos()
+    {
+      let tabela = document.querySelector("#tabela-lista");
+
+      this.carregarListaJogos().then((_data) => {
+        _data.forEach(element => {
+          // Criando elementos
+          let novaLinha = document.createElement("tr");
+          let colunaId = document.createElement("td");
+          let colunaNome = document.createElement("td");
+          let colunaImagem = document.createElement("td");
+          let colunaDescricao = document.createElement("td");
+          let colunaEstudioId = document.createElement("td");
+          let colunaEstudioNome = document.createElement("td");
+
+          // Atribuindo Inners
+          colunaId.innerText = element.id;
+          colunaNome.innerText = element.nome;
+          // colunaImagem.innerHTML = "<img src=" + element.imagem + " alt=" + element.nome + " style='width:200px'>";
+          colunaImagem.innerHTML = "<img src=" + element.imagem + " alt='Imagem' style='width: 200px'>"; // Essa funciona...
+          colunaDescricao.innerText = element.descricao;
+          colunaEstudioId.innerText = element.estudioid;
+          // colunaEstudioNome.innerText = element.nome;
+
+          // Appends
+          novaLinha.appendChild(colunaId);
+          novaLinha.appendChild(colunaNome);
+          novaLinha.appendChild(colunaImagem);
+          tabela.appendChild(novaLinha);
+        });
+      });
+    }
+    preencherJogos();
+    // Post
 
     let form = document.querySelector("#form");
 
-    let jogo = {
-      nome: document.querySelector("#nome-jogo").value,
-      urlimagem: document.querySelector("#urlimagem").value,
-      estudio: document.querySelector("#estudios").value,
-      descricao: document.querySelector("#descricao").value
-    }
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
 
-    fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(estudio),
-      headers: {
-        "Content-Type" : "application/json"
+      let jogo = {
+        nome: document.querySelector("#nome-jogo").value,
+        urlimagem: document.querySelector("#urlimagem").value,
+        estudio: document.querySelector("#estudios").value,
+        descricao: document.querySelector("#descricao").value
       }
-    })
-    .then(resposta => console.log(resposta))
-    .then(data => preencherJogos())
-    .catch(erro => console.log(erro))
+      
+      fetch(URLJogos, {
+        method: 'POST',
+        body: JSON.stringify(jogo),
+        headers: {
+          "Content-Type" : "application/json"
+        }
+      })
+      .then(resposta => console.log(resposta))
+      .then(data => preencherJogos())
+      .catch(erro => console.log(erro))
+    });
   </script>
 </body>
 
