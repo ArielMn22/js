@@ -4,9 +4,10 @@ import React, {
 import logo from '../../assets/img/icon-login.png';
 import './App.css';
 
-import '../../assets/css/flexbox.css'
-import '../../assets/css/reset.css'
-import '../../assets/css/style.css'
+import '../../assets/css/flexbox.css';
+import '../../assets/css/reset.css';
+import '../../assets/css/style.css';
+import {Link} from 'react-router-dom'; // Continuar a implementar
 
 import Rodape from '../../components/Rodape'
 
@@ -22,7 +23,7 @@ class App extends Component {
             <a>Home</a>
             <a>Eventos</a>
             <a>Contato</a>
-            <a className="cabecalhoPrincipal-nav-login" href="login.html">Login</a>
+            <Link className="cabecalhoPrincipal-nav-login" to="/login">Login</Link>
           </nav>
         </div>
       </header>

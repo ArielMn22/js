@@ -1,19 +1,35 @@
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './pages/Home/App';
+import Login from './pages/Login/Login';
+import { usuarioAutenticado } from './services/auth';
 import TiposEventos from './pages/TiposEventos/TiposEventos';
 import NaoEncontrada from './pages/NaoEncontrada/NaoEncontrada';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
+
+import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
+// Orientação a objetos = Abstração, Encapsulamento, Polimorifsmo, Herança.
+
+// let batata = ( 1 == 1 ) ? 3 : 5; // Operador ternário
+
+const Permissao = ({ component : Component}) => (
+    <Route
+        render = {props => usuarioAutenticado() ?
+            (<Component {...props}/>) :
+            (<Redirect to={{ pathname : '/login', state: {from: props.location}}} />)
+        }
+    />
+);
 
 const rotas = (
     <Router>
         <div>
             <Switch>
                 <Route exact path="/" component={App} /> {/* O 'exact' é utilizado para que ele renderize a página quando o path for exatamente igual ao informado no path=""; */}
-                <Route path="/tiposeventos" component={TiposEventos} />
+                <Permissao path="/tiposeventos" component={TiposEventos} />
+                <Route path="/login" component={Login} />
                 <Route component={NaoEncontrada} />
             </Switch>
         </div>

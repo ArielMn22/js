@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Rodape from "../../components/Rodape";
 import logo from "../../assets/img/icon-login.png";
+import Titulo from "../../components/Titulo";
 
 class TiposEventos extends Component {
   constructor() {
@@ -8,18 +9,19 @@ class TiposEventos extends Component {
 
     this.state = {
       lista: [],
-      nome: ""
-    };
+      nome: "",
+      tituloMensagem: "Olá, Tipos Eventos"
+    }; // Define as propriedades que serão utilizadas no 'this.state'
 
-    this.atualizaEstadoNome = this.atualizaEstadoNome.bind(this);
-    this.cadastrarTipoEvento = this.cadastrarTipoEvento.bind(this);
+    this.atualizaEstadoNome = this.atualizaEstadoNome.bind(this); // Dá um bind nos nomes de chamada dos métodos.
+    this.cadastrarTipoEvento = this.cadastrarTipoEvento.bind(this); // Dá um bind nos nomes de chamada dos métodos.
   }
 
   buscarTiposEventos(event) {
     fetch("http://192.168.4.112:5000/api/tiposeventos")
       .then(resposta => resposta.json())
       .then(data => this.setState({ lista: data }))
-      .catch(erro => console.log(erro));
+      .catch(erro => console.log(erro)); // Fetch é utilizado para consumir os dados da API.
   }
 
   componentDidMount() {
@@ -58,9 +60,11 @@ class TiposEventos extends Component {
 
         <main className="conteudoPrincipal">
           <section className="conteudoPrincipal-cadastro">
-            <h1 className="conteudoPrincipal-cadastro-titulo">
+          {/* <h1 className="conteudoPrincipal-cadastro-titulo">
               Tipos de Eventos
-            </h1>
+            </h1> */}
+            {/* <Titulo mensagem="Lista Tipos de Eventos" /> Chama um componente para a página */}
+            <Titulo mensagem={this.state.tituloMensagem} /> {/* Chama um componente para a página */}
             <div className="container" id="conteudoPrincipal-lista">
               <table id="tabela-lista">
                 <thead>
@@ -84,9 +88,9 @@ class TiposEventos extends Component {
             </div>
 
             <div className="container" id="conteudoPrincipal-cadastro">
-              <h2 className="conteudoPrincipal-cadastro-titulo">
+              <h1 className="conteudoPrincipal-cadastro-titulo">
                 Cadastrar Tipo de Evento
-              </h2>
+              </h1>
               <form onSubmit={this.cadastrarTipoEvento}>
                 <div className="container">
                   <input
