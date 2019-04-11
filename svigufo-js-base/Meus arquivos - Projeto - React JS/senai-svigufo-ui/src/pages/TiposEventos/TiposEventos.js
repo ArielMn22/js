@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Rodape from "../../components/Rodape";
 import logo from "../../assets/img/icon-login.png";
 import Titulo from "../../components/Titulo";
+import api from '../../services/api';
 
 class TiposEventos extends Component {
   constructor() {
@@ -17,15 +18,19 @@ class TiposEventos extends Component {
     this.cadastrarTipoEvento = this.cadastrarTipoEvento.bind(this); // Dá um bind nos nomes de chamada dos métodos.
   }
 
-  buscarTiposEventos(event) {
-    fetch("http://192.168.4.112:5000/api/tiposeventos")
-      .then(resposta => resposta.json())
-      .then(data => this.setState({ lista: data }))
-      .catch(erro => console.log(erro)); // Fetch é utilizado para consumir os dados da API.
-  }
+  // buscarTiposEventos(event) {
+  //   fetch("http://192.168.4.112:5000/api/tiposeventos")
+  //     .then(resposta => resposta.json())
+  //     .then(data => this.setState({ lista: data }))
+  //     .catch(erro => console.log(erro)); // Fetch é utilizado para consumir os dados da API.
+  // }
 
   componentDidMount() {
-    this.buscarTiposEventos();
+    api.tiposEventos().getAll().then(data => {
+      this.setState({ lista : data.data })
+      console.log(data)
+    })
+    // this.buscarTiposEventos();
   }
 
   atualizaEstadoNome(event) {

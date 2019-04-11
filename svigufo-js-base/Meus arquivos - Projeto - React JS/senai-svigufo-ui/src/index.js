@@ -5,6 +5,7 @@ import App from './pages/Home/App';
 import Login from './pages/Login/Login';
 import { usuarioAutenticado } from './services/auth';
 import TiposEventos from './pages/TiposEventos/TiposEventos';
+import Eventos from './pages/Eventos/Eventos';
 import NaoEncontrada from './pages/NaoEncontrada/NaoEncontrada';
 
 import {Route, BrowserRouter as Router, Switch, Redirect} from 'react-router-dom';
@@ -30,6 +31,7 @@ const rotas = (
                 <Route exact path="/" component={App} /> {/* O 'exact' é utilizado para que ele renderize a página quando o path for exatamente igual ao informado no path=""; */}
                 <Permissao path="/tiposeventos" component={TiposEventos} />
                 <Route path="/login" component={Login} />
+                <Permissao path="/eventos" component={Eventos} />
                 <Route component={NaoEncontrada} />
             </Switch>
         </div>
